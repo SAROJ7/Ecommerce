@@ -1,6 +1,6 @@
 # MEF-SSDT
 
-MEF Self-Soverign Digital Twin
+E-Commerce Website
 
 ## Installation
 
