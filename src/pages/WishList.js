@@ -20,9 +20,53 @@ const WishList = () => {
                 <div className="wishlist-card-image">
                   <img
                     src="images/watch.jpg"
-                    className="img-fluid"
-                    alt="watch w-100"
+                    className="img-fluid w-100"
+                    alt="watch "
                   />
+                </div>
+                <div className="py-3">
+                  <h5 className="title">Honor T1 7.0 1 GB RAM 8 GB ROM</h5>
+                  <h6 className="price">$100</h6>
+                </div>
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="wishlist-card w-100 postition-relative">
+                <img
+                  src="images/cross.svg"
+                  alt="cross"
+                  className="position-absolute cross img-fluid"
+                />
+                <div className="wishlist-card-image">
+                  <img
+                    src="images/watch.jpg"
+                    className="img-fluid w-100"
+                    alt="watch "
+                  />
+                </div>
+                <div className="py-3">
+                  <h5 className="title">Honor T1 7.0 1 GB RAM 8 GB ROM</h5>
+                  <h6 className="price">$100</h6>
+                </div>
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="wishlist-card w-100 postition-relative">
+                <img
+                  src="images/cross.svg"
+                  alt="cross"
+                  className="position-absolute cross img-fluid"
+                />
+                <div className="wishlist-card-image">
+                  <img
+                    src="images/watch.jpg"
+                    className="img-fluid w-100"
+                    alt="watch "
+                  />
+                </div>
+                <div className="py-3">
+                  <h5 className="title">Honor T1 7.0 1 GB RAM 8 GB ROM</h5>
+                  <h6 className="price">$100</h6>
                 </div>
               </div>
             </div>
