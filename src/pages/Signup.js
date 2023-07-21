@@ -11,7 +11,10 @@ import { registerUser } from "../features/user/userSlice";
 const signUpSchema = yup.object({
   firstname: yup.string().required("First Name is required"),
   lastname: yup.string().required("Last Name is required"),
-  email: yup.string().nullable().email("Email should be valid"),
+  email: yup
+    .string()
+    .email("Email should be valid")
+    .required("Email Address is required."),
   mobile: yup.string().required("Mobile No is Required"),
   password: yup.string().required("Password is Required"),
 });
@@ -52,7 +55,7 @@ const Signup = () => {
                   name="firstname"
                   placeholder="First Name"
                   value={formik.values.firstname}
-                  onchange={formik.handleChange("firstname")}
+                  onChange={formik.handleChange("firstname")}
                   onBlur={formik.handleBlur("firstname")}
                 />
                 <div className="error">
@@ -63,7 +66,7 @@ const Signup = () => {
                   name="lastname"
                   placeholder="Last Name"
                   value={formik.values.lastname}
-                  onchange={formik.handleChange("lastname")}
+                  onChange={formik.handleChange("lastname")}
                   onBlur={formik.handleBlur("lastname")}
                 />
                 <div className="error">
@@ -74,7 +77,7 @@ const Signup = () => {
                   name="email"
                   placeholder="Email"
                   value={formik.values.email}
-                  onchange={formik.handleChange("email")}
+                  onChange={formik.handleChange("email")}
                   onBlur={formik.handleBlur("email")}
                 />
                 <div className="error">
@@ -85,7 +88,7 @@ const Signup = () => {
                   name="mobile"
                   placeholder="Mobile Number"
                   value={formik.values.mobile}
-                  onchange={formik.handleChange("mobile")}
+                  onChange={formik.handleChange("mobile")}
                   onBlur={formik.handleBlur("mobile")}
                 />
                 <div className="error">
@@ -96,7 +99,7 @@ const Signup = () => {
                   name="password"
                   placeholder="Password"
                   value={formik.values.password}
-                  onchange={formik.handleChange("password")}
+                  onChange={formik.handleChange("password")}
                   onBlur={formik.handleBlur("password")}
                 />
                 <div className="error">
