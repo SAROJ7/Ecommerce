@@ -3,12 +3,16 @@ import ReactStars from "react-rating-stars-component";
 import { Link, useLocation } from "react-router-dom";
 
 const ProductCard = (props) => {
-  const { grid } = props;
+  const { grid,data } = props;
+  console.log(data);
   let location = useLocation();
   return (
-    <>
-      <div
-        className={`${
+    <>{
+      data?.map((item,index)=>{})
+    }
+        <div
+         key={index}
+         className={`${
           location.pathname === "/store" ? `gr-${grid}` : "col-3"
         } `}
       >
@@ -39,13 +43,7 @@ const ProductCard = (props) => {
               activeColor="#ffd700"
             />
             <p className={`description  ${grid === 12 ? "d-block" : "d-none"}`}>
-              This is not the end This is not the beginning just voice This is
-              This is not the end This is not the beginning just voice not the
-              This is not the end This is not the beginning just voice end This
-              This is not the end This is not the beginning just voice is not
-              This is not the end This is not the beginning just voice the This
-              is not the end This is not the beginning just voice beginning just
-              voice
+              {item?.description}
             </p>
             <p className="price">$100.00</p>
           </div>
