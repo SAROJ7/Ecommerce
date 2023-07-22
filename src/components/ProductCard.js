@@ -10,6 +10,7 @@ import addcart from "../images/add-cart.svg";
 import { useDispatch, useSelector } from "react-redux";
 import view from "../images/view.svg";
 import { addToWishlist } from "../features/products/productSlice";
+import { toast } from "react-toastify";
 
 const ProductCard = (props) => {
   const { grid, data } = props;
@@ -18,6 +19,7 @@ const ProductCard = (props) => {
 
   const addToWish = (id) => {
     dispatch(addToWishlist(id));
+    toast.info("Product added to wishlist");
   };
 
   if (!Array.isArray(data)) {
@@ -72,9 +74,8 @@ const ProductCard = (props) => {
                   className={`description ${
                     grid === 12 ? "d-block" : "d-none"
                   }`}
-                >
-                  {item?.description}
-                </p>
+                  dangerouslySetInnerHTML={{ __html: item?.description }}
+                ></p>
                 <p className="price">${item?.price}</p>
               </div>
               <div className="action-bar position-absolute">
