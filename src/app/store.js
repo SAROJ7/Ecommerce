@@ -4,6 +4,7 @@ import authReducer from "../features/user/userSlice";
 import productReducer from "../features/products/productSlice";
 import blogReducer from "../features/blogs/blogSlice";
 import contactReducer from "../features/contact/contactSlice";
+import auctionReducer from "../features/auction/auctionSlice";
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
@@ -11,5 +12,6 @@ export const store = configureStore({
     product: productReducer,
     blog: blogReducer,
     contact: contactReducer,
+    auction: auctionReducer,
   },
 });

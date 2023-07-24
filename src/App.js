@@ -20,6 +20,8 @@ import SingleProduct from "./pages/SingleProduct";
 import Blog from "./pages/Blog";
 import Cart from "./pages/Cart";
 import SingleBlog from "./pages/SingleBlog";
+import Auction from "./pages/Auction";
+import CreateAuction from "./pages/CreateAuction";
 function App() {
   return (
     <>
@@ -29,7 +31,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
-
+            <Route path="auction" element={<Auction />} />
             <Route path="product" element={<OurStore />} />
             <Route path="product/:id" element={<SingleProduct />} />
             <Route path="blogs" element={<Blog />} />
@@ -45,6 +47,7 @@ function App() {
             <Route path="refund-policy" element={<RefundPolicy />} />
             <Route path="shipping-policy" element={<ShippingPolicy />} />
             <Route path="term-conditions" element={<TermAndConditions />} />
+            <Route path="create-auction" element={<CreateAuction />} />
           </Route>
         </Routes>
       </BrowserRouter>

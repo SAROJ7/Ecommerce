@@ -672,4 +672,17 @@ footer:not(:first-child) {
   font-size: 14px;
   color: var(--color-777777);
 }
+
 /* Main Product Page Ends */
+
+.auction {
+  background-color: var(--color-febd69);
+  color: var(--color-777777);
+  align-self: flex-start;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px; /* Add your desired gap between the button and the cards */
+}
