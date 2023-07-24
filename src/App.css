@@ -17,6 +17,11 @@
   --color-777777: #777777;
 }
 
+.errors {
+  color: red;
+  font-size: 12px;
+}
+
 body {
   font-family: "Rubik", sans-serif;
 }

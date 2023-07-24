@@ -58,7 +58,7 @@ const Signup = () => {
                   onChange={formik.handleChange("firstname")}
                   onBlur={formik.handleBlur("firstname")}
                 />
-                <div className="error">
+                <div className="errors">
                   {formik.touched.firstname && formik.errors.firstname}
                 </div>
                 <CustomInput
@@ -69,7 +69,7 @@ const Signup = () => {
                   onChange={formik.handleChange("lastname")}
                   onBlur={formik.handleBlur("lastname")}
                 />
-                <div className="error">
+                <div className="errors">
                   {formik.touched.lastname && formik.errors.lastname}
                 </div>
                 <CustomInput
@@ -80,7 +80,7 @@ const Signup = () => {
                   onChange={formik.handleChange("email")}
                   onBlur={formik.handleBlur("email")}
                 />
-                <div className="error">
+                <div className="errors">
                   {formik.touched.email && formik.errors.email}
                 </div>
                 <CustomInput
@@ -91,7 +91,7 @@ const Signup = () => {
                   onChange={formik.handleChange("mobile")}
                   onBlur={formik.handleBlur("mobile")}
                 />
-                <div className="error">
+                <div className="errors">
                   {formik.touched.mobile && formik.errors.mobile}
                 </div>
                 <CustomInput
@@ -102,7 +102,7 @@ const Signup = () => {
                   onChange={formik.handleChange("password")}
                   onBlur={formik.handleBlur("password")}
                 />
-                <div className="error">
+                <div className="errors">
                   {formik.touched.password && formik.errors.password}
                 </div>
                 <div>
