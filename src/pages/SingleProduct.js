@@ -12,12 +12,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToWishlist, getAProduct } from "../features/products/productSlice";
 import { toast } from "react-toastify";
 import { addProdToCart, getUserCart } from "../features/user/userSlice";
+import { Link } from "react-router-dom";
+import watch from "../images/watch.jpg";
+
 const SingleProduct = () => {
   const [color, setColor] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [orderedProduct, setOrderedProduct] = useState(false);
   const [alreadyAdded, setAlreadyAdded] = useState(false);
   const location = useLocation();
+  const [popularProduct, setPopularProduct] = useState([]);
 
   const navigate = useNavigate();
   const productId = location.pathname.split("/")[2];
@@ -63,6 +67,19 @@ const SingleProduct = () => {
     dispatch(addToWishlist(id));
     toast.info("Product added to Wishlist.");
   };
+
+  useEffect(() => {
+    let data = [];
+    for (let i = 0; i < productState.length; i++) {
+      const element = productState[i];
+      if (element?.tags === "popular") {
+        data.push(element);
+      }
+    }
+    setPopularProduct(data);
+  }, [productState]);
+
+  console.log(`popular prod ${popularProduct}`);
 
   const props = {
     width: 400,
@@ -397,6 +414,62 @@ const SingleProduct = () => {
           </div>
           <div className="row">
             <ProductCard />
+          </div>
+        </div>
+        <div
+          className="modal fade"
+          id="staticBackdrop"
+          data-bs-backdrop="static"
+          data-bs-keyboard="false"
+          tabindex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-dialog-centered ">
+            <div className="modal-content">
+              <div className="modal-header py-0 border-0">
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="modal-body py-0">
+                <div className="d-flex align-items-center">
+                  <div className="flex-grow-1 w-50">
+                    <img
+                      src={watch}
+                      className="img-fluid"
+                      alt="product imgae"
+                    />
+                  </div>
+                  <div className="d-flex flex-column flex-grow-1 w-50">
+                    <h6 className="mb-3">Apple Watch</h6>
+                    <p className="mb-1">Quantity: asgfd</p>
+                    <p className="mb-1">Color: asgfd</p>
+                    <p className="mb-1">Size: asgfd</p>
+                  </div>
+                </div>
+              </div>
+              <div className="modal-footer border-0 py-0 justify-content-center gap-30">
+                <button
+                  type="button"
+                  className="button"
+                  data-bs-dismiss="modal"
+                >
+                  View My Cart
+                </button>
+                <button type="button" className="button signup">
+                  Checkout
+                </button>
+              </div>
+              <div className="d-flex justify-content-center py-3">
+                <Link className="text-dark" to="/product" onClick={() => {}}>
+                  Continue To Shopping
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

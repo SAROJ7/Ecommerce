@@ -14,6 +14,7 @@ const register = async (userData) => {
 const login = async (userData) => {
   const response = await axios.post(`${base_url}user/login`, userData);
   if (response.data) {
+    localStorage.setItem("loggedcustomer", JSON.stringify(response.data));
     return response.data;
   }
 };
@@ -62,6 +63,36 @@ const updateProductFromCart = async (cartDetail) => {
   }
 };
 
+const createOrder = async (orderDetail) => {
+  console.log(orderDetail);
+  const response = await axios.post(
+    `${base_url}user/cart/create-order`,
+    orderDetail,
+    config
+  );
+  if (response?.data) {
+    return response?.data;
+  }
+};
+
+const getUserOrders = async () => {
+  const response = await axios.get(`${base_url}user/getmyorders`, config);
+  if (response?.data) {
+    return response?.data;
+  }
+};
+
+const forgotPassToken = async (data) => {
+  const response = await axios.post(
+    `${base_url}user/forgot-password-token`,
+    data,
+    config
+  );
+  if (response?.data) {
+    return response?.data;
+  }
+};
+
 export const authService = {
   register,
   login,
@@ -70,4 +101,7 @@ export const authService = {
   getCart,
   removeProductFromCart,
   updateProductFromCart,
+  createOrder,
+  getUserOrders,
+  forgotPassToken,
 };

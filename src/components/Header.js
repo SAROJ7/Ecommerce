@@ -1,11 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigation, useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
+import { Typeahead } from "react-bootstrap-typeahead";
+import "react-bootstrap-typeahead/css/Typeahead.css";
+
 const Header = () => {
   const dispatch = useDispatch();
   const cartState = useSelector((state) => state?.auth?.cartProducts);
+  const authState = useSelector((state) => state?.auth);
+  const productState = useSelector((state) => state?.product?.product);
+  const [productOpt, setProductOpt] = useState([]);
   const [total, setTotal] = useState(null);
+  const [paginate, setPaginate] = useState(true);
+  const getCustomerfromLocalStorage = JSON.parse(
+    localStorage.getItem("loggedcustomer")
+  );
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   useEffect(() => {
     let sum = 0;
     for (let i = 0; i < cartState?.length; i++) {
@@ -13,6 +31,17 @@ const Header = () => {
     }
     setTotal(sum);
   }, [cartState]);
+  useEffect(() => {
+    let data = [];
+    for (let i = 0; i < productState.length; i++) {
+      const element = productState[i];
+      data.push({ id: i, prod: element?._id, name: element?.title });
+    }
+    console.log(`data ${data}`);
+    setProductOpt(data);
+    console.log(`productOpt ${productOpt}`);
+  }, []);
+
   return (
     <>
       <header className="header-top-strip py-3">
@@ -42,12 +71,21 @@ const Header = () => {
             </div>
             <div className="col-5">
               <div className="input-group mb-3">
-                <input
-                  type="text"
-                  className="form-control py-2 "
-                  placeholder="Search Product Here..."
-                  aria-label="Search Product Here..."
-                  aria-describedby="basic-addon2"
+                <Typeahead
+                  id="pagination"
+                  onChange={(selected) => {
+                    if (selected && selected.length > 0 && selected[0].prod) {
+                      navigate(`/product/${selected[0].prod}`);
+                    } else {
+                      // Handle the case when the search bar is cleared manually (optional)
+                      console.log("Search bar cleared.");
+                    }
+                  }}
+                  options={productOpt}
+                  paginate={paginate}
+                  labelKey={"name"}
+                  minLength={2}
+                  placeholder="Search For Products here..."
                 />
                 <span className="input-group-text p-3" id="basic-addon2">
                   <BsSearch className="fs-6" />
@@ -56,7 +94,7 @@ const Header = () => {
             </div>
             <div className="col-5">
               <div className="header-upper-links d-flex align-items-center justify-content-between">
-                <div>
+                {/* <div>
                   <Link
                     to="/compare-product"
                     className="d-flex align-items-center gap-10 text-white"
@@ -66,7 +104,7 @@ const Header = () => {
                       Compare <br /> Products
                     </p>
                   </Link>
-                </div>
+                </div> */}
                 <div>
                   <Link
                     to="/wishlist"
@@ -84,9 +122,15 @@ const Header = () => {
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src="images/user.svg" alt="user" />
-                    <p className="mb-0">
-                      Log in <br /> My Account
-                    </p>
+                    {getCustomerfromLocalStorage === null ? (
+                      <p className="mb-0">
+                        Log in <br /> My Account
+                      </p>
+                    ) : (
+                      <p className="mb-0">
+                        Welcome, {getCustomerfromLocalStorage?.firstname}
+                      </p>
+                    )}
                   </Link>
                 </div>
                 <div>
@@ -153,9 +197,20 @@ const Header = () => {
                   <div className="d-flex align-items-center gap-15">
                     <NavLink to="/">Home</NavLink>
                     <NavLink to="/product">Our Shop</NavLink>
+                    <NavLink to="/my-orders">My Orders</NavLink>
+
                     <NavLink to="/auction">Auction</NavLink>
                     <NavLink to="/blogs">Blogs</NavLink>
                     <NavLink to="/contact">Contact</NavLink>
+                    {getCustomerfromLocalStorage && (
+                      <button
+                        className="border border-0 bg-transparent text-white text-uppercase"
+                        type="button"
+                        onClick={handleLogout}
+                      >
+                        logout
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

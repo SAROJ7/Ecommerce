@@ -58,7 +58,7 @@ const ProductCard = (props) => {
               </div>
               <div className="product-image">
                 <img src={watch} className="img-fluid" alt="product image" />
-                <img src={watch2} className="img-fluid" alt="product image" />
+                {/* <img src={watch2} className="img-fluid" alt="product image" /> */}
               </div>
               <div className="product-details">
                 <h6 className="brand">{item?.brand}</h6>

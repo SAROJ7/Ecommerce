@@ -276,11 +276,11 @@ const Home = () => {
                           className="img-fluid"
                           alt="product image"
                         />
-                        <img
+                        {/* <img
                           src={watch2}
                           className="img-fluid"
                           alt="product image"
-                        />
+                        /> */}
                       </div>
                       <div className="product-details">
                         <h6 className="brand">{item?.brand}</h6>
@@ -410,11 +410,11 @@ const Home = () => {
                         </button>
                       </div>
                       <div className="product-image">
-                        <img
+                        {/* <img
                           src={watch}
                           className="img-fluid"
                           alt="product image"
-                        />
+                        /> */}
                         <img
                           src={watch2}
                           className="img-fluid"
