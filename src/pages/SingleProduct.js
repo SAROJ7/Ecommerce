@@ -65,7 +65,6 @@ const SingleProduct = () => {
     } else {
       dispatch(addRating({ start: star, comment: comment, prodId: productId }));
     }
-    return false;
   };
 
   const uploadToCart = (e) => {
@@ -393,33 +392,35 @@ const SingleProduct = () => {
                     </div>
                   </div>
                 )}
-                <div className="reviews mt-4">
-                  <div className="review">
-                    <div className="d-flex gap-10 align-items-center">
-                      <h6>Alish</h6>
-                      <ReactStars
-                        count={5}
-                        size={24}
-                        value="3"
-                        edit={false}
-                        activeColor="#ffd700"
-                      />
-                    </div>
-                    <p>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Perspiciatis, cum fuga qui ducimus et ex vitae tempora
-                      harum enim iure autem ullam, culpa facere nulla minima.
-                      Esse id voluptatibus maxime cumque, corporis, adipisci,
-                      vero quae corrupti aliquam natus excepturi expedita
-                      aspernatur earum eos eius quisquam in minus ipsa. Impedit
-                      voluptates, id quae qui delectus consectetur? Eaque
-                      deleniti est voluptatum iusto reiciendis nostrum quas,
-                      delectus, tempora hic numquam doloremque! Ipsum autem
-                      eligendi labore veritatis vitae perferendis eius ratione,
-                      animi repellendus esse!
-                    </p>
-                  </div>
-                </div>
+                <div className="reviews mt-4"></div>
+                {productState &&
+                  productState?.ratings?.map((item, index) => {
+                    <div className="review">
+                      <div className="d-flex gap-10 align-items-center">
+                        <h6>Alish</h6>
+                        <ReactStars
+                          count={5}
+                          size={24}
+                          value="3"
+                          edit={false}
+                          activeColor="#ffd700"
+                        />
+                      </div>
+                      <p>
+                        Lorem ipsum, dolor sit amet consectetur adipisicing
+                        elit. Perspiciatis, cum fuga qui ducimus et ex vitae
+                        tempora harum enim iure autem ullam, culpa facere nulla
+                        minima. Esse id voluptatibus maxime cumque, corporis,
+                        adipisci, vero quae corrupti aliquam natus excepturi
+                        expedita aspernatur earum eos eius quisquam in minus
+                        ipsa. Impedit voluptates, id quae qui delectus
+                        consectetur? Eaque deleniti est voluptatum iusto
+                        reiciendis nostrum quas, delectus, tempora hic numquam
+                        doloremque! Ipsum autem eligendi labore veritatis vitae
+                        perferendis eius ratione, animi repellendus esse!
+                      </p>
+                    </div>;
+                  })}
               </div>
             </div>
           </div>

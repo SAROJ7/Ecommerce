@@ -91,7 +91,7 @@ const Orders = () => {
                                   <ul className="colors ps-0">
                                     <li
                                       style={{
-                                        backgroundColor: i?.color,
+                                        backgroundColor: i?.color?.title,
                                       }}
                                     />
                                   </ul>
