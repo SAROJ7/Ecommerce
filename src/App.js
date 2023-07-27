@@ -36,7 +36,14 @@ function App() {
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
-            <Route path="auction" element={<Auction />} />
+            <Route
+              path="auction"
+              element={
+                <PrivateRoute>
+                  <Auction />
+                </PrivateRoute>
+              }
+            />
             <Route path="product" element={<OurStore />} />
             <Route path="product/:id" element={<SingleProduct />} />
             <Route path="blogs" element={<Blog />} />

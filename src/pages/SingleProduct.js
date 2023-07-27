@@ -9,7 +9,11 @@ import { TbGitCompare } from "react-icons/tb";
 import { AiOutlineHeart } from "react-icons/ai";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToWishlist, getAProduct } from "../features/products/productSlice";
+import {
+  addToWishlist,
+  getAProduct,
+  addRating,
+} from "../features/products/productSlice";
 import { toast } from "react-toastify";
 import { addProdToCart, getUserCart } from "../features/user/userSlice";
 import { Link } from "react-router-dom";
@@ -20,8 +24,13 @@ const SingleProduct = () => {
   const [quantity, setQuantity] = useState(1);
   const [orderedProduct, setOrderedProduct] = useState(false);
   const [alreadyAdded, setAlreadyAdded] = useState(false);
+
+  const [star, setStar] = useState(null);
+  const [comment, setComment] = useState(null);
   const location = useLocation();
-  const [popularProduct, setPopularProduct] = useState([]);
+  const getCustomerfromLocalStorage = JSON.parse(
+    localStorage.getItem("loggedcustomer")
+  );
 
   const navigate = useNavigate();
   const productId = location.pathname.split("/")[2];
@@ -45,6 +54,20 @@ const SingleProduct = () => {
     }
   });
 
+  const addRatingToProduct = () => {
+    console.log(`here`);
+    if (star === null) {
+      toast.error("Please Add Star Rating.");
+      return false;
+    } else if (comment === null) {
+      toast.error("Please Write Review About the Product.");
+      return false;
+    } else {
+      dispatch(addRating({ start: star, comment: comment, prodId: productId }));
+    }
+    return false;
+  };
+
   const uploadToCart = (e) => {
     e.preventDefault();
     if (color === null) {
@@ -67,19 +90,6 @@ const SingleProduct = () => {
     dispatch(addToWishlist(id));
     toast.info("Product added to Wishlist.");
   };
-
-  useEffect(() => {
-    let data = [];
-    for (let i = 0; i < productState.length; i++) {
-      const element = productState[i];
-      if (element?.tags === "popular") {
-        data.push(element);
-      }
-    }
-    setPopularProduct(data);
-  }, [productState]);
-
-  console.log(`popular prod ${popularProduct}`);
 
   const props = {
     width: 400,
@@ -214,62 +224,62 @@ const SingleProduct = () => {
                     </>
                   )}
 
-                  <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
-                    {alreadyAdded === false && (
-                      <>
-                        <h3 className="product-heading">Quantity :</h3>
-                        <div className="">
-                          <input
-                            type="number"
-                            name=""
-                            min={1}
-                            max={10}
-                            className="form-control"
-                            style={{ width: "70px" }}
-                            id=""
-                            value={quantity}
-                            onChange={(e) => setQuantity(e.target.value)}
-                          />
-                        </div>
-                      </>
-                    )}
-                    <div
-                      className={`d-flex align-items-center gap-30 ${
-                        alreadyAdded ? "ms-0" : "ms-5"
-                      }`}
-                    >
-                      <button
-                        className="button border-0"
-                        data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop"
-                        type="button"
-                        onClick={(e) => {
-                          alreadyAdded ? navigate("/cart") : uploadToCart(e);
-                        }}
+                  {getCustomerfromLocalStorage && (
+                    <div className="d-flex align-items-center gap-15 flex-row mt-2 mb-3">
+                      {alreadyAdded === false && (
+                        <>
+                          <h3 className="product-heading">Quantity :</h3>
+                          <div className="">
+                            <input
+                              type="number"
+                              name=""
+                              min={1}
+                              max={10}
+                              className="form-control"
+                              style={{ width: "70px" }}
+                              id=""
+                              value={quantity}
+                              onChange={(e) => setQuantity(e.target.value)}
+                            />
+                          </div>
+                        </>
+                      )}
+                      <div
+                        className={`d-flex align-items-center gap-30 ${
+                          alreadyAdded ? "ms-0" : "ms-5"
+                        }`}
                       >
-                        {alreadyAdded ? "Go to Cart" : "Add to Cart"}
-                      </button>
-                      {/* <button className="button ">Buy It Now</button> */}
+                        <button
+                          className="button border-0"
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop"
+                          type="button"
+                          onClick={(e) => {
+                            alreadyAdded ? navigate("/cart") : uploadToCart(e);
+                          }}
+                        >
+                          {alreadyAdded ? "Go to Cart" : "Add to Cart"}
+                        </button>
+                        {/* <button className="button ">Buy It Now</button> */}
+                      </div>
                     </div>
-                  </div>
-                  <div className="d-flex align-items-center gap-15">
-                    <div>
-                      <a href="">
-                        <TbGitCompare className="fs-5 me-2" /> Add to Compare
-                      </a>
+                  )}
+                  {getCustomerfromLocalStorage && (
+                    <div className="d-flex align-items-center gap-15">
+                      <div>
+                        <a
+                          href=""
+                          onClick={(e) => {
+                            e.preventDefault();
+                            addToWish(productState?._id);
+                          }}
+                        >
+                          <AiOutlineHeart className="fs-5 me-2" /> Add to
+                          WishList
+                        </a>
+                      </div>
                     </div>
-                    <div>
-                      <a
-                        href=""
-                        onClick={(e) => {
-                          e.preventDefault();
-                          addToWish(productState?._id);
-                        }}
-                      >
-                        <AiOutlineHeart className="fs-5 me-2" /> Add to WishList
-                      </a>
-                    </div>
-                  </div>
+                  )}
                 </div>
                 <div className="d-flex gap-10  flex-column mt-4 mb-3">
                   <h3 className="product-heading">Shipping and Returns :</h3>
@@ -345,9 +355,10 @@ const SingleProduct = () => {
                   )}
                 </div>
 
-                <div className="review-form py-4">
-                  <h4>Write a Review</h4>
-                  <form action="" className="d-flex flex-column gap-15">
+                {getCustomerfromLocalStorage && (
+                  <div className="review-form py-4">
+                    <h4>Write a Review</h4>
+
                     <div>
                       <ReactStars
                         count={5}
@@ -355,6 +366,7 @@ const SingleProduct = () => {
                         value="3"
                         edit={true}
                         activeColor="#ffd700"
+                        onChange={(e) => setStar(e)}
                       />
                     </div>
                     <div>
@@ -365,13 +377,22 @@ const SingleProduct = () => {
                         cols="30"
                         rows="5"
                         placeholder="Comments"
+                        onChange={(e) => {
+                          setComment(e.target.value);
+                        }}
                       ></textarea>
                     </div>
-                    <div className="d-flex justify-content-end">
-                      <button className="button border-0">Submit Review</button>
+                    <div className="d-flex justify-content-end mt-3">
+                      <button
+                        onClick={addRatingToProduct}
+                        className="button border-0"
+                        type="button"
+                      >
+                        Submit Review
+                      </button>
                     </div>
-                  </form>
-                </div>
+                  </div>
+                )}
                 <div className="reviews mt-4">
                   <div className="review">
                     <div className="d-flex gap-10 align-items-center">
@@ -406,22 +427,12 @@ const SingleProduct = () => {
       </section>
 
       <section className="popular-wrapper py-5 home-wrapper-2">
-        <div className="container-xxl">
-          <div className="row">
-            <div className="col-12">
-              <h3 className="section-heading">Our Popular Products</h3>
-            </div>
-          </div>
-          <div className="row">
-            <ProductCard />
-          </div>
-        </div>
         <div
           className="modal fade"
           id="staticBackdrop"
           data-bs-backdrop="static"
           data-bs-keyboard="false"
-          tabindex="-1"
+          tabIndex="-1"
           aria-labelledby="staticBackdropLabel"
           aria-hidden="true"
         >
