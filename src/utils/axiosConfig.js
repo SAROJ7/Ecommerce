@@ -1,4 +1,4 @@
-export const base_url = "http://localhost:5000/api/";
+export const base_url = "http://localhost:6000/api/";
 
 const getTokenFromLocalStorage = localStorage.getItem("loggedcustomer")
   ? JSON.parse(localStorage.getItem("loggedcustomer"))

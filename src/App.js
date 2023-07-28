@@ -103,7 +103,14 @@ function App() {
             <Route path="refund-policy" element={<RefundPolicy />} />
             <Route path="shipping-policy" element={<ShippingPolicy />} />
             <Route path="term-conditions" element={<TermAndConditions />} />
-            <Route path="create-auction" element={<CreateAuction />} />
+            <Route
+              path="create-auction"
+              element={
+                <PrivateRoute>
+                  <CreateAuction />
+                </PrivateRoute>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>

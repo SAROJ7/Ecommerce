@@ -29,32 +29,33 @@ const Auction = () => {
         <div className="row">
           {auctionState &&
             auctionState?.map((item, index) => {
-              if (item?.status === "In Progress") {
-                return (
-                  <div key={index} className={"col-3"}>
-                    <div className="product-card position-relative">
-                      <div className="product-image">
-                        <img
-                          src="images/watch.jpg"
-                          className="img-fluid"
-                          alt="product image"
-                        />
-                      </div>
+              console.log(index);
+              return (
+                <div key={index} className={"col-3"}>
+                  <div className="product-card position-relative">
+                    <div className="product-image">
+                      <img
+                        src="images/watch.jpg"
+                        className="img-fluid"
+                        alt="product image"
+                      />
+                    </div>
+                    <div className="product-details">
+                      <h5 className="product-title">{item?.title}</h5>
                       <div className="product-details">
-                        <h5 className="product-title">{item?.title}</h5>
-                        <div className="product-details">
-                          <button className="button border-0" type="submit">
-                            Bid
-                          </button>
-                        </div>
-                        <p className="price">
-                          Starting Price: &nbsp; ${item?.startingPrice}
-                        </p>
+                        <button className="button border-0" type="submit">
+                          Bid
+                        </button>
                       </div>
+                      <p className="price">
+                        Starting Price: &nbsp; $
+                        {item?.startingPrice.$numberDecimal}
+                      </p>
+                      <p className="price">Status: &nbsp; {item?.status}</p>
                     </div>
                   </div>
-                );
-              }
+                </div>
+              );
             })}
         </div>
       </Container>
